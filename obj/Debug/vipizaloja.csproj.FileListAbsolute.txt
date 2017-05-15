@@ -1,0 +1,6 @@
+D:\msurya\Practice\vipizaloja\vipizaloja\bin\vipizaloja.dll.config
+D:\msurya\Practice\vipizaloja\vipizaloja\bin\vipizaloja.dll
+D:\msurya\Practice\vipizaloja\vipizaloja\bin\vipizaloja.pdb
+D:\msurya\Practice\vipizaloja\vipizaloja\obj\Debug\vipizaloja.dll
+D:\msurya\Practice\vipizaloja\vipizaloja\obj\Debug\vipizaloja.pdb
+D:\msurya\Practice\vipizaloja\vipizaloja\obj\Debug\vipizaloja.csprojResolveAssemblyReference.cache

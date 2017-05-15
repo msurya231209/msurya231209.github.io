@@ -1,0 +1,167 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link rel="stylesheet" href="https://esri.github.io/calcite-maps/dist/css/calcite-maps-bootstrap.min-v0.3.css">
+    <link rel="stylesheet" href="https://esri.github.io/calcite-maps/dist/css/calcite-maps-arcgis-3.x.min-v0.3.css">
+    <link rel="stylesheet" href="https://js.arcgis.com/3.20/esri/themes/calcite/dijit/calcite.css">
+    <link rel="stylesheet" href="https://js.arcgis.com/3.20/esri/themes/calcite/esri/esri.css">
+    <!--<link href="CSS/ShareDialogMain.css" rel="stylesheet" />-->
+    <link href="CSS/ShareDialog.css" rel="stylesheet" />
+    <style>
+        html, body, #map {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body class="calcite calcite-maps calcite-nav-top calcite-zoom-top-left calcite-layout-small-title">
+
+    <!-- Navbar -->
+    <nav class="navbar calcite-navbar navbar-fixed-top calcite-text-light calcite-bg-dark">
+
+        <!-- Menu -->
+        <div class="dropdown calcite-dropdown calcite-bg-light calcite-text-dark" role="presentation">
+            <a class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">
+                <div class="calcite-dropdown-toggle">
+                    <span class="sr-only">Toggle dropdown menu</span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </a>
+            <ul class="dropdown-menu">
+
+                <li><a role="button" data-target="#panelMeasure" aria-haspopup="true"><span class="glyphicon glyphicon-th-large"></span> Measurement Widget</a></li>
+                <li><a role="button" data-target="#panelShare" aria-haspopup="true"><span class="glyphicon glyphicon-envelope"></span> Share Widget</a></li>
+            </ul>
+        </div>
+
+    </nav> <!--end Navbar -->
+    <!-- Map Container  -->
+    <div class="calcite-map">
+        <div id="mapViewDiv" class="calcite-map-absolute"></div>
+    </div> <!-- end Map Container -->
+    <!-- Panel -->
+    <div class="calcite-panels calcite-panels-right calcite-bg-dark calcite-text-light panel-group" role="tablist" aria-multiselectable="true">
+
+        <!-- Measurement Panel -->
+        <div id="panelMeasure" class="panel collapse">
+            <div id="headingMeasure" class="panel-heading" role="tab">
+                <div class="panel-title">
+                    <a class="panel-toggle" role="button" data-toggle="collapse" href="#collapseMeasure" aria-expanded="true" aria-controls="collapseMeasure"><span class="glyphicon glyphicon-th-large" aria-hidden="true"></span><span class="panel-label">Measurement Widget</span></a>
+                    <a class="panel-close" role="button" data-toggle="collapse" data-target="#panelMeasure"><span class="esri-icon esri-icon-close" aria-hidden="true"></span></a>
+                </div>
+            </div>
+            <div id="collapseMeasure" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingMeasure">
+                <div class="panel-body">
+                    <div id="measurementDiv"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Share Panel -->
+    <!--html should deploy-->
+        <div id="panelShare" class="panel collapse">
+            <div id="headingShare" class="panel-heading" role="tab">
+                <div class="panel-title">
+                    <a class="panel-toggle" role="button" data-toggle="collapse" href="#collapseShare" aria-expanded="true" aria-controls="collapseShare"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span><span class="panel-label">Share Widget</span></a>
+                    <a class="panel-close" role="button" data-toggle="collapse" data-target="#panelShare"><span class="esri-icon esri-icon-close" aria-hidden="true"></span></a>
+                </div>
+            </div>
+            <div id="collapseShare" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingShare">
+                <div class="panel-body">
+                    <div id="ShareDiv"></div>
+                    <div class="dialog-content">
+                        <div class="share-dialog-subheader">Share this map</div>
+                        <div class="icon-container">
+                            <div tabindex="0" class="icon-facebook-squared-1 share-dialog-icon" data-dojo-attach-point="_facebookButton" title="Facebook"><button id="btnfb"><img src="images/fb.png" width="25" height="25" /></button></div>
+                            <div tabindex="0" class="icon-twitter-1 share-dialog-icon" data-dojo-attach-point="_twitterButton" title="Twitter"><button id="btnTwitter"><img src="images/twitter.jpg" width="25" height="25" /></button></div>
+                            <div tabindex="0" class="icon-gplus share-dialog-icon" data-dojo-attach-point="_gpulsButton" title="Google Plus"><button id="btnGplus"><img src="images/gplus.jpg" width="25" height="25" /></button></div>
+                            <div tabindex="0" class="icon-mail share-dialog-icon" data-dojo-attach-point="_emailButton" title="Email">
+                                <button id="btnEmail">
+                                    <img src="images/email.png" width="25" height="25" />                                    
+                                </button>                                
+                            </div>
+                            <div tabindex="0" class="icon-link share-dialog-icon" data-dojo-attach-point="_linkButton" title="Map Link" target="_blank" href="http://arcg.is/LrHvH"><button id="btnLink"><img src="images/link.jpg" width="25" height="25" /></button></div>
+                            <div tabindex="0" class="icon-clear"></div>
+                        </div>
+                        <br /><br /><br />
+                        <div class="share-dialog-extent">
+                            <input tabindex="0" id="ShareDialog_extent_checkbox" data-dojo-attach-point="_extentInput" type="checkbox"> <label for="ShareDialog_extent_checkbox" >Share current map extent</label>
+                        </div>
+                        
+                        <div class="share-dialog-subheader">Map Link</div>
+                        <input tabindex="0" class="share-map-url" autofocus="" type="text" data-dojo-attach-point="_shareMapUrlText" value="http://esri.github.io/public-information-map-template-js/" readonly="">
+                        <br /><br />
+                        <div class="share-dialog-subheader">Embed Map</div>
+                        <div class="embed-page">
+                            <textarea tabindex="0" autofocus="" data-dojo-attach-point="_embedNode" rows="5" cols="33" readonly="" class="share-dialog-textarea" style="margin: 0px 0px 20px; width: 386px; height: 80px;"></textarea>
+                        </div>
+                        <div class="map-size-container">
+                            <div class="map-size-label">Size (width/height):</div>
+                            <div class="embed-map-size-dropdown">
+                                <select tabindex="0" data-dojo-attach-point="_comboBoxNode"><option value="0">100% x 640px</option><option value="1">100% x 480px</option><option value="2">100% x 320px</option><option value="3">800px x 600px</option><option value="4">640px x 480px</option><option value="5">480px x 320px</option></select>
+                            </div>
+                            <div class="embed-map-size-clear"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div> <!-- end Panel -->
+
+    <script type="text/javascript">
+        var dojoConfig = {
+            packages: [{
+                name: "bootstrap",
+                location: "https://esri.github.io/calcite-maps/dist/vendor/dojo-bootstrap"
+            }, {
+                name: "calcite-maps",
+                location: "https://esri.github.io/calcite-maps/dist/js/dojo"
+            }]
+        };
+    </script>
+
+    <!-- JavaScript 3.20 -->
+    <script src="https://js.arcgis.com/3.20/"></script>
+    <script src="scripts/ShareDialog1.js"></script>
+    
+    <script>
+
+        require([
+          "esri/arcgis/utils",
+          "esri/dijit/Measurement",
+          "calcite-maps/calcitemaps-v0.3",
+          "bootstrap/Collapse",
+          "bootstrap/Dropdown",
+          "bootstrap/Tab",
+          "dojo/domReady!"
+        ],
+        function (arcgisUtils, Measurement, Button, CalciteMaps) {
+
+            esri.config.defaults.io.proxyUrl = "/proxy/";
+            esri.config.defaults.io.alwaysUseProxy = false;
+            esri.config.defaults.geometryService = new esri.tasks.GeometryService("https://utility.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer");
+
+            arcgisUtils.createMap("a7892820987c499ea376fe558b54eab3", "mapViewDiv").then(function (response) {
+                window.map = response.map;
+
+                var measurement = new Measurement({
+                    map: window.map,
+                }, dojo.byId('measurementDiv'));
+                measurement.startup();
+            })
+            //JS code should deploy            
+        })
+
+    </script>
+</body>
+</html>
